@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Générateur de Signature Email HTML (Gratuit)</title>
+<style>
+:root{--ink:#17233b;--muted:#66758b;--blue:#5b5ce2;--line:#e5e9f2;}
+body{margin:0;font:14px/1.5 Inter,sans-serif;color:var(--ink);background:#fff;}
+.top{display:flex;justify-content:space-between;padding:15px 30px;border-bottom:1px solid var(--line);}
+.brand{font-weight:850;font-size:20px;display:flex;gap:10px;align-items:center;}
+.brandmark{width:32px;height:32px;border-radius:10px;background:var(--blue);color:#fff;display:grid;place-items:center;}
+.container{max-width:800px;margin:30px auto;padding:20px;}
+.form-group{display:grid;gap:5px;margin-bottom:15px;}
+input{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;font:inherit;}
+textarea{width:100%;height:120px;padding:10px;border:1px solid #ccc;border-radius:8px;font:inherit;margin-top:10px;}
+.primary{background:var(--blue);color:#fff;padding:14px;border:0;border-radius:10px;font-weight:800;font-size:16px;cursor:pointer;width:100%;margin-top:20px;}
+select{padding:8px;border-radius:8px;border:1px solid #ccc;margin-left:auto;}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand"><div class="brandmark">M</div> MailSign</div>
+  <select onchange="changeLang(this.value)"><option value="fr">🇫🇷 FR</option><option value="en">🇬🇧 EN</option><option value="es">🇪🇸 ES</option><option value="pt">🇧🇷 PT</option></select>
+</div>
+<div class="container">
+  <h1 id="t_title">Créez votre signature email</h1>
+  <div class="form-group"><label id="t_name">Nom complet</label><input type="text" id="sigName" value="Jean Dupont"></div>
+  <div class="form-group"><label id="t_job">Poste</label><input type="text" id="sigJob" value="Développeur Web"></div>
+  <div class="form-group"><label id="t_phone">Téléphone</label><input type="text" id="sigPhone" value="+33 6 12 34 56 78"></div>
+  <button class="primary" id="btnGen" onclick="generate()">Générer le code HTML</button>
+  <div id="resultBox" style="display:none;margin-top:20px;">
+    <textarea id="htmlCode" readonly></textarea>
+  </div>
+</div>
+<script>
+const dict = {
+  fr: { title: "Créez votre signature email", name: "Nom complet", job: "Poste", phone: "Téléphone", btn: "Générer le code HTML" },
+  en: { title: "Create your email signature", name: "Full name", job: "Job title", phone: "Phone", btn: "Generate HTML code" },
+  es: { title: "Crea tu firma de correo", name: "Nombre completo", job: "Puesto", phone: "Teléfono", btn: "Generar código HTML" },
+  pt: { title: "Crie sua assinatura de e-mail", name: "Nome completo", job: "Cargo", phone: "Telefone", btn: "Gerar código HTML" }
+};
+let currentLang = 'fr';
+window.changeLang = (l) => { currentLang = l; const t = dict[l]; document.getElementById('t_title').textContent = t.title; document.getElementById('t_name').textContent = t.name; document.getElementById('t_job').textContent = t.job; document.getElementById('t_phone').textContent = t.phone; document.getElementById('btnGen').textContent = t.btn; };
+window.generate = () => {
+  const name = document.getElementById('sigName').value;
+  const job = document.getElementById('sigJob').value;
+  const phone = document.getElementById('sigPhone').value;
+  const html = `
+<div style="font-family: Arial, sans-serif; color: #333;">
+  <p style="margin:0; font-weight:bold; font-size:16px;">${name}</p>
+  <p style="margin:0; color:#666; font-size:14px;">${job}</p>
+  <p style="margin:5px 0 0; font-size:13px;">📞 ${phone}</p>
+</div>`;
+  document.getElementById('htmlCode').value = html;
+  document.getElementById('resultBox').style.display = 'block';
+};
+changeLang('fr');
+</script>
+</body>
+</html>
